@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 public class TaxonomyEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer taxonomyId;
     private String taxonomyCommonName;
     private String taxonomyScientificName;

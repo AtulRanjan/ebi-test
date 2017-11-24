@@ -6,9 +6,9 @@ import org.ebi.business.dto.ProjectDTO;
 import java.util.List;
 
 public interface ProjectService {
-    List<ProjectDTO> findAll();
-    List<ProjectDTO> findByTaxomony(Integer taxomonyId);
-    List<ProjectDTO> findByStudyType(String studyType);
     ProjectDetailsDTO findOne(String projectId);
-
+    List<ProjectDTO> find(Integer toxonomyId,  String title, String sourceType, String studyType, String evaCenterName, String centerName);
+    String save(ProjectDetailsDTO dto);
+    void delete(String projectId);
+    ProjectDetailsDTO update(String projectId, ProjectDetailsDTO dto);
 }

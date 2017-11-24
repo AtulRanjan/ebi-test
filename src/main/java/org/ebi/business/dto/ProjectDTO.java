@@ -10,4 +10,5 @@ public class ProjectDTO {
     private String studyType;
     private String evaCenterName;
     private String centerName;
+    private Integer taxonomyId;
 }
