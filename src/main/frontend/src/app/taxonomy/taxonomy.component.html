@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3>Taxonomies</h3>
+    </div>
+</div>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well well-sm">
+            <form class="form-horizontal" (ngSubmit)="getTaxonomies()">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input name="symbol" class="form-control input-sm" type="text" placeholder="Taxonomy CommonName" [(ngModel)]="taxonomyCommonName" required>
+                    </div>
+                    <div class="col-md-3">
+                        <input name="position" class="form-control input-sm" type="text" placeholder="Taxonomy Scientific Name" [(ngModel)]="taxonomyScientificName" required>
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        <div class="btn-group pull-right" role="group">
+                            <button type="submit" class="btn btn-sm btn-primary" (ngSubmit)="getTaxonomies()" [disabled]="isLoading">
+            							<span *ngIf="!isLoading; else loading">Search</span>
+              						<ng-template #loading>Loading</ng-template></button>
+                            <button type="button" class="btn btn-sm btn-default" (click)="clearOptions()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div *ngIf="taxonomies && taxonomies.length > 0;then result_content else no_content"></div>
+</div>
+<ng-template #result_content>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class=" text-center">Taxonomy Id</th>
+                        <th class=" text-center">Taxonomy Common Name</th>
+                        <th class=" text-center">Taxonomy Scientific Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let taxonomy of taxonomies">
+                        <td class="text-center">{{taxonomy.taxonomyId}}</td>
+                        <td class="text-center">{{taxonomy.taxonomyCommonName}}</td>
+                        <td class="text-center">{{taxonomy.taxonomyScientificName}}</td>
+                        <td class="text-center"><a (click)="openLink(taxonomy.taxonomyId)">Click here</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>
+<ng-template #no_content>
+    <div class="col-md-12 text-center text-danger">
+        {{contentText}}
+    </div>
+</ng-template>

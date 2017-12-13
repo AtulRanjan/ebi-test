@@ -1,0 +1,90 @@
+<div>
+    <div>
+        <h3>Project Studies</h3>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <form  (ngSubmit)="getProjects()">
+        <mat-form-field>
+            <input matInput  placeholder="Title" [(ngModel)]="title" name="title"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Study Type" [(ngModel)]="studyType" name="studyType"/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput  placeholder="Source Type" [(ngModel)]="sourceType" name="sourceType"/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="EvaCenter Name" [(ngModel)]="evaCenterName" name="evaCenterName"/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Center Name" [(ngModel)]="centerName" name="centerName"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Taxonomy Id" [(ngModel)]="taxonomyId" name="taxonomyId"/>
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button color="Accent" (ngSubmit)="getProjects()" [disabled]="isLoading">
+    		<span *ngIf="!isLoading; else loading">Search</span>
+    		<ng-template #loading>Loading</ng-template></button>
+        <button type="button" mat-raised-button color="Accent" (click)="clearOptions()">Clear</button>
+      </form>
+
+<hr/>
+<div class="row">
+  <div *ngIf="dataSource && dataSource.data  && dataSource.data.length > 0;then result_content else no_content"></div>
+</div>
+<ng-template #result_content>
+    <mat-card>
+      <div class="p-container">
+        <mat-table #table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="projectId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Id</mat-header-cell>
+            <mat-cell *matCellDef="let project">
+              <a mat-button color="primary" routerLink="/app/projectdetail/{{project.projectId}}" >{{project.projectId}}</a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+            <mat-cell *matCellDef="let project"> {{project.title}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="studyType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Study Type</mat-header-cell>
+            <mat-cell *matCellDef="let project"> {{project.studyType}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="sourceType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Source Type</mat-header-cell>
+            <mat-cell *matCellDef="let project"> {{project.sourceType}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="evaCenterName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Eva Center Name</mat-header-cell>
+            <mat-cell *matCellDef="let project"> {{project.evaCenterName}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="centerName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Center Name</mat-header-cell>
+            <mat-cell *matCellDef="let project"> {{project.centerName}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="taxonomyId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Taxonomy Id</mat-header-cell>
+            <mat-cell *matCellDef="let project"> <a mat-button color="primary" (click)="getTaxonomyByTaxonomyId(project.taxonomyId)">{{project.taxonomyId}}</a></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let project; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator
+                [length]="dataSource.length"
+                [pageIndex]="0"
+                [pageSize]="30"
+                [pageSizeOptions]="[20, 50,100,200]">
+        </mat-paginator>
+      </div>
+      </mat-card>
+</ng-template>
+<ng-template #no_content>
+    <div class="col-md-12 text-center text-danger">
+        {{contentText}}
+    </div>
+</ng-template>

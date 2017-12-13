@@ -20,7 +20,7 @@ public class ProjectEntity {
     private String centerName;
 //    private Integer taxonomyId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="taxonomy_id",nullable = true)
+    @JoinColumn(name="taxonomy_id")
     @JsonIgnore
     private TaxonomyEntity taxonomy;
 }

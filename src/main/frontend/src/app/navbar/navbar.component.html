@@ -1,0 +1,18 @@
+<div>
+<mat-toolbar color="primary"  style="position:fixed;width:100%;top:0;left:0;z-index:1000" class="project-toolbar">
+    <h2>Welcome to EBI Test Example</h2>
+
+    <button mat-button [matMenuTriggerFor]="projectsMenu" >Projects</button>
+    <button mat-button [matMenuTriggerFor]="taxonomyMenu">Taxonomies</button>
+
+</mat-toolbar>
+
+<mat-menu #projectsMenu="matMenu">
+  <button mat-menu-item routerLink="app/projects">View Projects</button>
+  <button mat-menu-item routerLink="app/projectsDetails">ProjectsDetails</button>
+</mat-menu>
+<mat-menu #taxonomyMenu="matMenu">
+  <button mat-menu-item routerLink="app/taxonomies">View Taxonomies</button>
+  <button mat-menu-item routerLink="app/taxonomies">Taxonomies</button>
+</mat-menu>
+</div>

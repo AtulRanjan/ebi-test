@@ -1,0 +1,62 @@
+<div>
+<div *ngIf ="editMode && project then editModeView else readOrCreateMode"></div>
+<ng-template #editModeView>
+  <form  (ngSubmit)="updateProject()">
+    <mat-form-field>
+      <input matInput  placeholder="Title" [(ngModel)]="project.title" name="title"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Study Type" [(ngModel)]="project.studyType" name="studyType"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  placeholder="Source Type" [(ngModel)]="project.sourceType" name="sourceType"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="EvaCenter Name" [(ngModel)]="project.evaCenterName" name="evaCenterName"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Center Name" [(ngModel)]="project.centerName" name="centerName"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Taxonomy Id" [(ngModel)]="project.taxonomy.taxonomyId" name="taxonomyId"/>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="Accent" (ngSubmit)="updateProject()" [disabled]="isLoading">
+      <span *ngIf="!isLoading; else loading">Update</span>
+      <ng-template #loading>Loading</ng-template></button>
+      <button type="button" mat-raised-button color="Accent" (click)="clearFields()">Clear</button>
+    </form>
+  </ng-template>
+</div>
+<ng-template #readOrCreateMode>
+  <div *ngIf="project; then viewMode else createProjectMode"></div>
+    <ng-template #viewMode>
+      <form>
+        <div>
+            <span>Title</span>{{project.title}}
+        </div>
+        <div>
+            <span>Description</span>{{project.description}}
+        </div>
+        <div>
+          <span>Study Type</span>{{project.studyType}}
+        </div>
+        <div>
+            <span>Source Type</span>{{project.sourceType}}
+        </div>
+        <div>
+            <span>EvaCenter Name</span>{{project.evaCenterName}}
+        </div>
+        <div>
+            <span>Center Name</span>{{project.centerName}}
+        </div>
+        <div>
+          <span>Taxonomy Id</span>{{project.taxonomy.taxonomyId}}
+        </div>
+        <button type="button" mat-raised-button color="Accent" (click)="goBack()">Go Back</button>
+        <button type="button" mat-raised-button color="Accent" (click)="toggleEdit()">Edit</button>
+      </form>
+    </ng-template>
+    <ng-template #createProjectMode>
+    </ng-template>
+</ng-template>

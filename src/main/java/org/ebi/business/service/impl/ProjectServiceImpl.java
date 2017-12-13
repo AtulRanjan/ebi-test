@@ -50,9 +50,8 @@ public class ProjectServiceImpl implements ProjectService {
                 .withIgnoreNullValues();
         Example example = Example.of(filter, matcher);
         List<ProjectEntity> list = projectRepository.findAll(example);
-        System.out.println(list.size());
         List<ProjectDTO> dtos = new ArrayList<>();
-       list.parallelStream().forEach(p-> {
+       list.stream().forEach(p-> {
            ProjectDTO projectDTO = mapper.map(p, ProjectDTO.class);
            projectDTO.setTaxonomyId(p.getTaxonomy().getTaxonomyId());
            dtos.add(projectDTO);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/taxonomies")
+@RequestMapping("/api/v1/taxonomies")
 public class TaxonomyController {
 
     @Autowired
